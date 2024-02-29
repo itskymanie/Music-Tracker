@@ -4,19 +4,23 @@ class Song
 {
     public:
     //class requirements
-    Song(string title, string artist); //default ctor
+    Song(string title, string artist,string album); //default ctor
+    ~Song();
 
     //setters and getters
     string getTitle();
     string getArtist();
-    void setTitle()
+    void setTitle(string title);
+    void setArtist(string artist);
+    void setAlbum(string album);
 
     //fuctionalities
     Song * SearchBySong(string title);
     Song * SearchByArtist(string artist);
-    void Add(string title, string artist);
+    Song * SearchByAlbum(string album);
+    void Add(string title, string artist, string album);
     void BatchAdd(ifstream& file);
-    void Remove(string title,string artist);
+    void Remove(string title, string artist);
     void BatchRemove(ifstream& file);
     ofstream& Save();
     void Exit();
@@ -24,4 +28,6 @@ class Song
     private:
     string m_title;
     string m_artist;
-}
+    string m_album;
+
+};
