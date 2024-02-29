@@ -5,29 +5,35 @@ class Song
     public:
     //class requirements
     Song(string title, string artist,string album); //default ctor
+    Song(const Song& other);
+    Song(Song&& other) noexcept;
+    Song& operator = (Song&& other) noexcept;
+    Song& operator = (const Song& other);
     ~Song();
+    void clear();
 
-    //setters and getters
-    string getTitle();
-    string getArtist();
+    // for debugging
+    bool operator ==(const Song& other) const;
+    string toString()const;
+
+    //getters 
+    string getTitle()const;
+    string getArtist()const;
+    string getAlbum()const;
+    string getNextTitle() const;
+    Song* getNext()const;
+
+    //setters
+    void setNext(Song* nextSong);
     void setTitle(string title);
     void setArtist(string artist);
     void setAlbum(string album);
-
-    //fuctionalities
-    Song * SearchBySong(string title);
-    Song * SearchByArtist(string artist);
-    Song * SearchByAlbum(string album);
-    void Add(string title, string artist, string album);
-    void BatchAdd(ifstream& file);
-    void Remove(string title, string artist);
-    void BatchRemove(ifstream& file);
-    ofstream& Save();
-    void Exit();
+    
 
     private:
     string m_title;
     string m_artist;
     string m_album;
+    Song* m_next;
 
 };
