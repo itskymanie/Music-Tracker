@@ -4,11 +4,12 @@ class Song
 {
     public:
     //class requirements
+    Song();
     Song(string title, string artist,string album); //default ctor
     Song(const Song& other);
     Song(Song&& other) noexcept;
-    Song& operator = (Song&& other) noexcept;
-    Song& operator = (const Song& other);
+    Song& operator = (Song&& rhs) noexcept;
+    Song& operator = (const Song& rhs);
     ~Song();
     void clear();
 
