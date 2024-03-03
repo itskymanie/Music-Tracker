@@ -71,3 +71,15 @@ void Song::clear()
 {
 
 }
+
+bool Song::operator==(const Song& other) const 
+{
+    return this == &other || (this->getArtist() == other.getArtist() && this->getTitle() == other.getTitle());
+}
+
+string Song::toString()const
+{
+    string complete = this->getTitle() + " - " + this->getArtist() + " - " + this->getAlbum();
+
+    return  complete;
+}
