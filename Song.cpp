@@ -1,6 +1,5 @@
 # include "Song.h"
 
-
 Song::Song() : m_title() , m_artist(), m_album(), m_next(nullptr)
 {
 
@@ -27,13 +26,22 @@ Song::Song(Song&& other) noexcept : m_title(std::move(other.m_title)) , m_artist
 
 Song& Song::operator = (Song&& rhs) noexcept
 {
+    if(this != &rhs)
+    {
+        m_title = std::move(rhs.m_title);
+        m_album = std::move(rhs.m_album);
+        m_artist = std::move(rhs.m_artist);
 
+        delete m_next;
+        m_next = std::exchange(rhs.m_next, nullptr);
+    }
+    return *this;
 }
+
 Song& Song::operator = (const Song& rhs) 
 {
-    if (this != &rhs) //self-assignement check
+    if (this != &rhs)
     {
-         // Copy the non-pointer members
         m_title = rhs.m_title;
         m_artist = rhs.m_artist;
         m_album = rhs.m_album;
@@ -43,20 +51,20 @@ Song& Song::operator = (const Song& rhs)
         {
             if (m_next == nullptr)
             {
-                m_next = new Song;  // If m_next is null, create a new node
+                m_next = new Song;  
             }
-            *m_next = *(rhs.m_next);  // Recursively copy the linked list
+            *m_next = *(rhs.m_next);  
         }
         else
         {
-            delete m_next;  // If rhs has a null m_next, make sure to delete the existing one
+            delete m_next;  
             m_next = nullptr;
         }
+        return *this;
 }
     
 Song::~Song()
 {
-    // Traverse the linked list and delete each node
     Song* current = m_next;
     while (current != nullptr)
     {
@@ -69,7 +77,8 @@ Song::~Song()
 
 void Song::clear()
 {
-
+    delete m_next;
+    m_next = nullptr;
 }
 
 bool Song::operator==(const Song& other) const 
@@ -82,4 +91,48 @@ string Song::toString()const
     string complete = this->getTitle() + " - " + this->getArtist() + " - " + this->getAlbum();
 
     return  complete;
+}
+   
+string Song::getTitle()const
+{
+    return m_title;
+}
+
+string Song::getArtist()const
+{
+    return m_artist;
+}
+
+string Song::getAlbum()const
+{
+    return m_album;
+}
+
+string Song::getNextTitle() const
+{
+    return m_title;
+}
+
+Song* Song::getNext()const
+{
+    return m_next;
+}
+
+void Song::setNext(Song* nextSong)
+{
+    m_next = nextSong;
+}
+
+void Song::setTitle(string title)
+{
+    m_title = title;
+}
+
+void Song::setArtist(string artist)
+{
+    m_artist = artist;
+}
+void Song::setAlbum(string album)
+{
+    m_album = album;
 }
