@@ -7,11 +7,10 @@ public:
     // class requirements
     List();// default ctor
     List(const List & copy); // copy ctor
-    List & operator = (const List & rhs); // = assignnemnt operator
+    List(List&& other) noexcept; //move ctor
+    List& operator = (List&& rhs) noexcept; // move assignement
+    List& operator = (const List & rhs); // = assignnemnt operator
     ~List(); // dtor
-
-    //getters
-    Song * getHead();
 
     //fuctionalities
     Song *SearchBySong(const string& title) const;

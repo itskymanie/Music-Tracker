@@ -12,7 +12,6 @@ Song::Song(string title, string artist,string album) : m_title(title) , m_artist
 
 Song::Song(const Song& other) : m_title(other.m_title) , m_artist(other.m_artist), m_album(other.m_album)
 {
-    // Create a deep copy of the linked list
     if (other.m_next) {
         m_next = new Song(*(other.m_next));
     }
