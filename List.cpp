@@ -84,3 +84,110 @@ List::~List() // dtor
         delete current;  // This will call the destructor of the Song class
     };  
 }
+
+Song* List::SearchBySong(const string& title) const
+{
+    bool found = false;
+    Song* current = m_head;
+
+    while(current && found == false)
+    {
+        if (_stricmp(current->getTitle().c_str(), title.c_str()) == 0 )
+        {
+            found = true;
+        }
+        current = current->getNext();
+    }
+    return current;
+}
+
+Song* List::SearchByArtist(const string& artist) const
+{
+    bool found = false;
+    Song* current = m_head;
+
+    while(current && found == false)
+    {
+        if (_stricmp(current->getArtist().c_str(), artist.c_str()) == 0 )
+        {
+            found = true;
+        }
+        current = current->getNext();
+    }
+    return current;
+}
+Song* List::SearchByAlbum(const string& album) const
+{
+    bool found = false;
+    Song* current = m_head;
+
+    while(current && found == false)
+    {
+        if (_stricmp(current->getAlbum().c_str(), title.c_str()) == 0 )
+        {
+            found = true;
+        }
+        current = current->getNext();
+    }
+    return current;
+}
+
+void List::Add(const string& title, const string& artist, const string& album)
+{
+    Song* newSong  = new Song(title, artist, album);
+
+    if(m_head)
+    {
+        Song* travel = m_head;
+        Song* trail = nullptr;
+        while (travel && (_stricmp(travel->getTitle().c_str(),title.c_str()) <=0 ))
+        {
+            trail = travel;
+            travel =travel->getNext();
+        }
+        newSong->setNext(travel);
+        trail->setNext(newSong); 
+    }
+    else 
+    {
+        m_head = newSong;
+    }
+}
+
+
+void List::Remove(const string& title, const string& artist)
+{
+    if(!m_head)
+    {
+        cout << "\nList is empty" << endl;
+    }
+    else if((_stricmp(m_head->getTitle().c_str(), title.c_str()) ==0 ) 
+         && (_stricmp(m_head->getArtist().c_str(), artist.c_str()) ==0 ))
+    {
+        Song* trail = m_head;
+        m_head = m_head->getNext();
+        delete trail;
+    }
+    else
+    {
+        Song* travel = m_head;
+        Song* trail = nullptr;
+        while (travel && (_stricmp(travel->getTitle().c_str(),title.c_str()) !=0 ) 
+               && (_stricmp(travel->getArtist().c_str(), artist.c_str()) !=0 ))
+        {
+            trail = travel;
+            travel =travel->getNext();
+        }
+
+        if (travel)
+        {
+            trail->setNext(travel->getNext()) ;
+            delete travel;
+        }
+        else
+        {
+            cout<< "\nSong not found!!" << endl;
+        }
+    }
+    
+}
