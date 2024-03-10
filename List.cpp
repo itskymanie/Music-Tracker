@@ -34,16 +34,16 @@ List::List(List&& other) noexcept : m_head(nullptr)
 }
 
 
-List& List::operator = (List&& rhs) noexcept : m_head(nullptr)// move assignement
+List& List::operator = (List&& rhs) noexcept // move assignement
 {
     if(this != &rhs)
     {
-        m_head= std::exchange(rhs.m_head, nullptr)
+        m_head= std::exchange(rhs.m_head, nullptr);
     }
     return *this;
 }
 
-List& List::operator = (const List & rhs) : m_head (nullptr) // = assignnemnt operator
+List& List::operator = (const List & rhs) // = assignnemnt operator
 {
     if (this != &rhs)
     {
@@ -123,7 +123,7 @@ Song* List::SearchByAlbum(const string& album) const
 
     while(current && found == false)
     {
-        if (_stricmp(current->getAlbum().c_str(), title.c_str()) == 0 )
+        if (_stricmp(current->getAlbum().c_str(), album.c_str()) == 0 )
         {
             found = true;
         }

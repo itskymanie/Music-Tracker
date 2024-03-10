@@ -1,9 +1,9 @@
-#include "include.h"
 #include "List.h"
 
 int main()
 {
-    cout << "Hello World" << endl;
-    Song Nothing;
+    Song nothing;
+    cout << nothing.toString() <<endl;
+    
     return 0;
 }
